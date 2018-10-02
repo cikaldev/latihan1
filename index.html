@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Latihan1</title>
+    <!-- Sedikit style CSS untuk mempercantik tampilan -->
+    <style>
+        mark {
+            padding: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Latihan 1 (Client)</h1>
+
+    <!-- respon data dari server akan ditampilkan disini -->
+    <h3 id="data"></h3>
+
+    <!-- logika penggunaan SSE akan terjadi disini -->
+    <script>
+        // pertama kita lakukan pengecekan apakah browser yang digunakan support SSE
+        if (typeof(EventSource) !== "undefined") {
+            // jika browser support SSE maka deklarasikan SSE kedalam variabel
+            // var namaVariabel = new EventSource("..lokasi file server..");
+            var source = new EventSource("/latihan1/coba/sse.php");
+            source.onmessage = function(event) {
+                document.getElementById("data").innerHTML = "Jumlah user : <mark>" + event.data + "</mark> user";
+            };
+        } else {
+            // jika browser tidak support SSE maka tampilkan pesan berikut
+            document.getElementById("data").innerHTML = "Maaf, browser yang anda gunakan tidak mendukung SSE...";
+        }
+    </script>
+</body>
+</html>
